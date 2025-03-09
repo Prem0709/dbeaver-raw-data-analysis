@@ -1,0 +1,141 @@
+SELECT * 
+FROM dataset_1;
+
+--Purpose: Retrieves all columns and rows from dataset_1.
+--Use Case: General exploration of the entire dataset.
+
+SELECT weather, temperature
+from dataset_1;
+
+--Purpose: Fetches only the weather and temperature columns.
+--Use Case: Analyzing weather-temperature relationships.
+
+SELECT * 
+FROM dataset_1 limit(10);
+
+--Purpose: Returns the first 10 rows of the dataset.
+--Use Case: Quick preview of data structure.
+
+SELECT DISTINCT passanger
+FROM dataset_1;
+
+--The DISTINCT keyword here returns unique values from the 'passanger' column.
+
+SELECT * 
+FROM dataset_1
+where destination = 'Home';
+
+--- Filters the rows to only those where the destination is 'Home'. All columns are included for those rows.
+
+SELECT * 
+FROM dataset_1
+ORDER  BY  coupon;
+
+--- Orders the entire dataset by the 'coupon' column. Default is ascending order. So rows are sorted based on the coupon values.
+
+SELECT  destination
+as Destination from dataset_1
+
+--- Selects the 'destination' column and renames it to 'Destination' in the output.
+
+SELECT occupation 
+FROM  dataset_1 group by occupation
+
+/*Uses GROUP BY: Groups rows by occupation, effectively returning each unique occupation once.*/
+
+
+--Aggregate Functions (AVG, COUNT, SUM, MIN, MAX)
+--Purpose: Perform calculations on grouped data.
+--
+--AVG(): Average of values.
+--
+--COUNT(): Number of rows.
+--
+--SUM(): Sum of values.
+--
+--MIN()/MAX(): Smallest/largest value.
+
+SELECT weather, AVG(temperature)
+as avg_temp 
+from dataset_1 group by weather 
+
+SELECT weather , COUNT(temperature)
+AS count_temp FROM dataset_1
+group by weather
+
+select weather,
+COUNT(DISTINCT temperature) 
+as count_distinct_temp FROM dataset_1 
+group by weather
+
+SELECT weather ,
+sum (temperature)
+as sum_temp 
+from dataset_1 group by weather
+
+SELECT weather,
+min (temperature)
+as min_temp 
+from dataset_1 group by weather
+
+SELECT weather,
+max (temperature)
+as max_temp
+FROM dataset_1 group by weather
+
+---------------------------------------------------------------------------------------
+SELECT occupation from
+dataset_1 group BY 
+occupation HAVING occupation='Student'
+
+--The HAVING clause in SQL is used to filter the results of a GROUP BY operation. It is similar to WHERE,
+--but HAVING is used for filtering after aggregation, whereas WHERE filters rows before aggregation.
+
+SELECT DISTINCT destination
+from (select * from dataset_1 union select * from table_to_union)
+
+/*Combines dataset_1 with table_to_union using UNION (which removes duplicates),
+then selects distinct destinations from the combined result.
+The subquery is probably to merge two tables and then get unique destinations.*/
+
+SELECT a.destination,a.time,b.part_of_day 
+FROM dataset_1 a 
+INNER JOIN table_to_join b 
+ON a.time=b.time 
+
+--dataset_1 a  ---------- 
+--The table dataset_1 is given an alias a.
+--So, instead of writing dataset_1.destination, we write a.destination.
+
+--Query Execution:
+--INNER JOIN looks for matching time values in both tables.
+--It combines columns from both tables into one result
+  
+
+SELECT destination ,passanger  
+FROM(SELECT*FROM dataset_1 
+WHERE passanger  = 'Alone') 
+
+-- WHERE This selects only the rows where the passanger column is 'Alone'.
+
+SELECT * FROM dataset_1 
+WHERE weather LIKE 'Sun%' 
+
+--LIKE 'Sun%' finds all rows where weather starts with "Sun" (e.g., "Sunny", "Sunlight").
+--% is a wildcard that matches any characters after "Sun".
+
+SELECT DISTINCT temperature 
+FROM dataset_1 WHERE temperature 
+BETWEEN 29 AND 75 
+
+--BETWEEN 29 AND 75 filters only temperatures within this range (both 29 and 75 are included).
+--DISTINCT ensures no duplicate temperatures are shown
+
+SELECT occupation FROM dataset_1 
+WHERE occupation IN('Sales & Related','Management') 
+
+--This filters rows where occupation is either 'Sales & Related' or 'Management'.
+--Selects rows that match specific values.
+
+
+
