@@ -1,8 +1,5 @@
 # dbeaver-sql-data-analysis
 
-
-Sure! Below is a breakdown of each query with **explanations, use cases, and example tables**.
-
 ---
 
 ## **1. Retrieve All Data**
